@@ -134,12 +134,14 @@
 <node CREATED="1385689509014" ID="ID_913170114" MODIFIED="1385689515301" TEXT="angularjs&#x7684;&#x6811;&#x7ed3;&#x6784;"/>
 </node>
 </node>
-<node CREATED="1385543773135" ID="ID_1819210369" MODIFIED="1385543774636" TEXT="&#x53c2;&#x8003;">
+<node CREATED="1385543773135" ID="ID_1819210369" MODIFIED="1386033177217" TEXT="&#x53c2;&#x8003;">
 <node CREATED="1385543775584" ID="ID_407939017" MODIFIED="1385543776783" TEXT="http://www.cnblogs.com/joe1545134/p/node-js-and-restful-api.html"/>
 <node CREATED="1385690109209" ID="ID_458485370" MODIFIED="1385690112797" TEXT="angularjs">
 <node CREATED="1385690344189" ID="ID_1130052060" LINK="http://www.lovelucy.info/angularjs-best-practices.html" MODIFIED="1385690354310" TEXT="angularjs&#x6700;&#x4f73;&#x5b9e;&#x8df5;"/>
 <node CREATED="1385690765707" ID="ID_1289919201" LINK="http://angularjs.cn/" MODIFIED="1385690775957" TEXT="http://angularjs.cn/&#x793e;&#x533a;"/>
-<node CREATED="1385691057099" ID="ID_1666689726" LINK="http://zouyesheng.com/angular.html" MODIFIED="1385691066285" TEXT="AngularJS&#x5b66;&#x4e60;&#x7b14;&#x8bb0;"/>
+<node CREATED="1385691057099" ID="ID_1666689726" LINK="http://zouyesheng.com/angular.html" MODIFIED="1386038958975" TEXT="AngularJS&#x5b66;&#x4e60;&#x7b14;&#x8bb0;">
+<icon BUILTIN="yes"/>
+</node>
 <node CREATED="1385691353224" ID="ID_258947918" LINK="http://key232323.iteye.com/blog/1806468" MODIFIED="1385691403994" TEXT="angularjs&#x6269;&#x5c55;&#x81f3;&#x96f6;&#x96c6;&#x6210;&#x90e8;&#x5206;jquery ui/plugin"/>
 <node CREATED="1385694805119" ID="ID_635389151" LINK="http://whitewolfblog.blog.51cto.com/3973901/983092" MODIFIED="1385694829470" TEXT="angularJS &#x7684; Slider &#x6307;&#x4ee4;&#x6269;&#x5c55;"/>
 <node CREATED="1385695192069" ID="ID_118452362" LINK="https://github.com/angular/angular.js/wiki/JSFiddle-Examples" MODIFIED="1385695200467" TEXT="JSFiddle Examples"/>
@@ -156,6 +158,12 @@
 </node>
 </node>
 </node>
+<node CREATED="1386033177118" ID="ID_1314896964" MODIFIED="1386033182535" TEXT="bootstrap">
+<node CREATED="1386033087357" ID="ID_29722311" LINK="http://angular-ui.github.io/bootstrap/" MODIFIED="1386033098128" TEXT="UI Bootstrap"/>
+<node CREATED="1386060210871" ID="ID_757189731" LINK="https://github.com/angular-ui/bootstrap/tree/gh-pages" MODIFIED="1386060223303" TEXT="https://github.com/angular-ui/bootstrap/tree/gh-pages"/>
+<node CREATED="1386033183760" ID="ID_1761695733" LINK="http://www.bootcss.com/" MODIFIED="1386033187905" TEXT="http://www.bootcss.com/"/>
+</node>
+<node CREATED="1386040271254" ID="ID_1883976826" MODIFIED="1386040273204" TEXT="http://flexpaper.devaldi.com/demo"/>
 </node>
 </node>
 </node>
