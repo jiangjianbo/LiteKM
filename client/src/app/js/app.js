@@ -7,6 +7,7 @@ var app = angular.module('litekmApp', [
     'ngAnimate',
     'ngRoute',
     'ngGrid',
+    'ui.bootstrap.alert',
     'litekmApp.filters',
     'litekmApp.services',
     'litekmApp.directives',

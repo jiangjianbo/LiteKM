@@ -9,10 +9,6 @@
         
     <link rel="stylesheet" href="css/app.css"/>
     <link href="lib/bootstrap/css/bootstrap.css" rel="stylesheet">
-    <link href="lib/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
-    <link href="lib/angular-bootstrap-nav-tree/abn_tree.css" rel="stylesheet">
-    <link href="lib/ng-grid/ng-grid.css" rel="stylesheet">
-
     <style type="text/css">
 
     .file-grid {
@@ -23,11 +19,27 @@
         display: block;
     }
     
-    .toolbar {
-        background-color: #f5f5f5;    
+    .search-box {
+        padding-top: 3px;
     }
     
-    </style>
+    .btn-group > .nav{
+        font-size: 14px;
+        margin-bottom: 0px;
+    }
+
+    .btn-group > .nav > li{
+        display: block;
+    }
+
+    .btn-group > .nav > li > a{
+        display: inline;
+    }
+    </style>    
+    <link href="lib/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="lib/angular-bootstrap-nav-tree/abn_tree.css" rel="stylesheet">
+    <link href="lib/ng-grid/ng-grid.css" rel="stylesheet">
+
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="lib/html5shiv/html5shiv.js"></script>
@@ -71,29 +83,30 @@
 
         <!-- Begin page content -->
         <div class="container-fluid" ng-controller="DirTreeController">
-            <div class="row-fluid">            
-                <div class="span10">
-        			<ul class="breadcrumb">
-        				<li>
-        					<a href="#">主页</a> <span class="divider">/</span>
-        				</li>
-        				<li>
-        					<a href="#">类目</a> <span class="divider">/</span>
-        				</li>
-        				<li class="active">
-        					主题
-        				</li>
-        			</ul>
-                </div>
-                <div class="span2">
-        			<form class="form-search">
+            <div class="row-fluid">
+                <span class="span1 navbar-text">当前目录：</span>
+    			<ul class="breadcrumb span7">
+    				<li><a href="#">目录1</a> <span class="divider">/</span></li>
+    				<li><a href="#">目录2</a> <span class="divider">/</span></li>
+    				<li><a href="#">目录3</a> <span class="divider">/</span></li>
+    				<li><a href="#">目录4</a> <span class="divider">/</span></li>
+    				<li><a href="#">目录5</a> <span class="divider">/</span></li>
+    				<li><a href="#">目录6</a> <span class="divider">/</span></li>
+    				<li><a href="#">目录7</a> <span class="divider">/</span></li>
+    				<li><a href="#">目录8</a> <span class="divider">/</span></li>
+    				<li><a href="#">目录9</a> <span class="divider">/</span></li>
+    				<li class="active"><a href="#">目录</a> </li>
+    			</ul>
+    			<div class="span4">
+    			    <button class="btn">上传文件</button>
+        			<form class="form-search pull-right">
                         <div class="input-append">
                             <input type="text" class="span10 search-query">
                             <button type="submit" class="btn"><i class="icon-search"></i></button>
                         </div>
                     </form>
-                </div>        				    
-            </div>
+    			</div>
+            </div>        
             <div class="row-fluid">            
                 <div class="span3">
                     <div class="well">
@@ -110,12 +123,16 @@
                     </div><!--/.well -->
                 </div><!--/span-->
                 <div class="span9">   
-                    <div class="alert alert-warning">{{ output }}</div>     
+
                     <div ng-controller="FileGridController">
                         <div class="file-grid" ng-grid="gridOptions">
                         </div>
                         <div class="selectedItems">{{mySelections}}</div>
                     </div>                       
+                    <div class="alert alert-warning">{{ output }}</div>     
+                    <div ng-controller="AlertController">
+                        <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+                    </div>
                 </div><!--/span-->
             </div><!--/row-->
         </div> <!-- /container -->
@@ -136,6 +153,7 @@
   <script src="lib/angular/angular-animate.js"></script>  
   <script src="lib/angular-bootstrap-nav-tree/abn_tree_directive.js"></script>  
   <script src="lib/ng-grid/ng-grid-2.0.7.debug.js"></script>  
+  <script src="lib/ui-bootstrap/ui-bootstrap-tpls-0.7.0.js"></script>
   
   <script src="js/app.js"></script>
   <script src="js/services.js"></script>
