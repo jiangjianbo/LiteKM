@@ -12,11 +12,9 @@
     <style type="text/css">
 
     .file-grid {
-        border: 1px solid rgb(212,212,212);
         width: 100%;
         height: 500px;
         min-height: 100%;
-        display: block;
     }
     
     .search-box {
@@ -35,11 +33,16 @@
     .btn-group > .nav > li > a{
         display: inline;
     }
+    
+    .rating{
+        width: 300px;
+        height: 14px;
+        display: inline-block;
+    }
     </style>    
     <link href="lib/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
     <link href="lib/angular-bootstrap-nav-tree/abn_tree.css" rel="stylesheet">
     <link href="lib/ng-grid/ng-grid.css" rel="stylesheet">
-
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="lib/html5shiv/html5shiv.js"></script>
@@ -82,7 +85,7 @@
         </div>
 
         <!-- Begin page content -->
-        <div class="container-fluid" ng-controller="DirTreeController">
+        <div class="container-fluid" ng-controller="KmDirTreeController">
             <div class="row-fluid">
                 <span class="span1 navbar-text">当前目录：</span>
     			<ul class="breadcrumb span7">
@@ -98,10 +101,10 @@
     				<li class="active"><a href="#">目录</a> </li>
     			</ul>
     			<div class="span4">
-    			    <button class="btn">上传文件</button>
+    			    <button class="btn btn-primary">上传文件</button>
         			<form class="form-search pull-right">
                         <div class="input-append">
-                            <input type="text" class="span10 search-query">
+                            <input type="text" class="span10 search-query" placeholder="搜索" >
                             <button type="submit" class="btn"><i class="icon-search"></i></button>
                         </div>
                     </form>
@@ -124,17 +127,88 @@
                 </div><!--/span-->
                 <div class="span9">   
 
-                    <div ng-controller="FileGridController">
-                        <div class="file-grid" ng-grid="gridOptions">
+                    <div ng-controller="KmFileGridController">
+                        <div class="file-grid table-bordered" ng-grid="gridOptions">
                         </div>
                         <div class="selectedItems">{{mySelections}}</div>
                     </div>                       
                     <div class="alert alert-warning">{{ output }}</div>     
-                    <div ng-controller="AlertController">
+                    <div ng-controller="KmAlertController">
                         <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
                     </div>
                 </div><!--/span-->
             </div><!--/row-->
+            <div ng-controller="KmMessageBoxController">
+                <script type="text/ng-template" id="myModalContent.html">
+                    <div class="modal-header">
+                        <h3>I'm a modal!</h3>
+                    </div>
+                    <div class="modal-body">
+                        <ul>
+                            <li ng-repeat="item in items">
+                                <a ng-click="selected.item = item">{{ item }}</a>
+                            </li>
+                        </ul>
+                        Selected: <b>{{ selected.item }}</b>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" ng-click="ok()">OK</button>
+                        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+                    </div>
+                </script>
+            
+                <button class="btn" ng-click="open()">Open me!</button>
+                <div ng-show="selected">Selection from a modal: {{ selected }}</div>
+            </div>      
+            <div ng-controller="KmRatingController" class="controls">
+                <p>rating:
+                    <rating value="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+                    <span class="badge" ng-class="{'badge-warning': percent<30, 'badge-info': percent>=30 && percent<70, 'badge-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>
+                </p>
+            </div>
+            <div ng-controller="KmPopoverController">
+                <input type="text" value="Click me!" popover-animation="true" popover-title="The title." popover="focus!!!" popover-trigger="focus" />
+            </div>
+            <div ng-controller="KmTooltipController">
+                <a><span tooltip-popup-delay='1000' tooltip-html-unsafe="{{htmlTooltip}}">Tooltip!!!</span></a>
+            </div>
+            <div ng-controller="KmFileUploadController">
+                <script type="text/ng-template" id="FileUploadWindow.html">
+                    <div class="modal-header">
+                        <h3>I'm a modal!</h3>
+                    </div>
+                    <div class="modal-body">                    
+                        <form class="form-horizontal" ng-upload action="/upload-full-form" ng-upload-loading="startUploading()">
+                            <div class="control-group">
+                                <label class="control-label" for="upFile">文件：</label>
+                                <div class="controls"><input id="upFile" type="file" name="file" /></div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="upSummary">介绍：</label>
+                                <div class="controls"><textarea rows="3" id="upSummary" class="span5" type="text" name="summary" ng-model="summary" placeholder="概要介绍文件的内容" ></textarea></div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="upTags">标签：</label>
+                                <div class="controls"><input id="upTags" class="span5" type="text" name="tags" ng-model="tags" placeholder="逗号分隔的标签属性" /></div>
+                            </div>
+                            <div class="control-group">
+                                <div class="controls"><button type="submit" class="btn btn-danger" upload-submit="uploadComplete(content, completed)" ng-disabled="$isUploading" >上传</button></div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" ng-click="ok()">OK</button>
+                        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+                    </div>
+                </script>
+                <div class="alert alert-info">Server Response: {{response | json}}</div>
+                <div>
+                    Fullname: <b>{{response.fullname}}</b><br />
+                    Gender: <b>{{response.gender}}</b><br />
+                    Favourite Color: <span ng-style="response.style">{{response.color}}</span><br />
+                    Picture: {{response.pictureUrl}}
+                </div>            
+            </div>
         </div> <!-- /container -->
         <div id="push"></div>
     </div>
@@ -144,22 +218,23 @@
           <p>LiteKM v<span app-version></span> <span class="pull-right">Under GPLv3 License.</span> </p>
       </div>
     </div>
-  <!-- In production use:
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
-  -->
-  <script src="lib/jquery/jquery-1.9.1.js"></script>
-  <script src="lib/angular/angular.js"></script>
-  <script src="lib/angular/angular-route.js"></script>
-  <script src="lib/angular/angular-animate.js"></script>  
-  <script src="lib/angular-bootstrap-nav-tree/abn_tree_directive.js"></script>  
-  <script src="lib/ng-grid/ng-grid-2.0.7.debug.js"></script>  
-  <script src="lib/ui-bootstrap/ui-bootstrap-tpls-0.7.0.js"></script>
-  
-  <script src="js/app.js"></script>
-  <script src="js/services.js"></script>
-  <script src="js/controllers.js"></script>
-  <script src="js/filters.js"></script>
-  <script src="js/directives.js"></script>
+    <!-- In production use:
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+    -->
+    <script src="lib/jquery/jquery-1.9.1.js"></script>
+    <script src="lib/angular/angular.js"></script>
+    <script src="lib/angular/angular-route.js"></script>
+    <script src="lib/angular/angular-animate.js"></script>  
+    <script src="lib/angular-bootstrap-nav-tree/abn_tree_directive.js"></script>  
+    <script src="lib/ng-grid/ng-grid-2.0.7.debug.js"></script>  
+    <script src="lib/ui-bootstrap/ui-bootstrap-tpls-0.7.0.js"></script>
+    <script src="lib/ng-upload/ng-upload.js"></script>
+
+    <script src="js/app.js"></script>
+    <script src="js/services.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/filters.js"></script>
+    <script src="js/directives.js"></script>
 
 </body>
 </html>

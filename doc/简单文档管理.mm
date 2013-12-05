@@ -176,6 +176,10 @@
 <node CREATED="1386116730186" ID="ID_41683344" MODIFIED="1386116734913" TEXT="&#x6bd4;&#x8f83;&#x7b80;&#x6d01;"/>
 </node>
 </node>
+<node CREATED="1386213072634" ID="ID_121008953" MODIFIED="1386213074809" TEXT="uploader">
+<node CREATED="1386213075884" ID="ID_832839198" LINK="http://blueimp.github.io/jQuery-File-Upload/angularjs.html" MODIFIED="1386213079939" TEXT="http://blueimp.github.io/jQuery-File-Upload/angularjs.html"/>
+<node CREATED="1386223957672" ID="ID_591219009" LINK="http://twilson63.github.io/ngUpload/" MODIFIED="1386223961547" TEXT="http://twilson63.github.io/ngUpload/"/>
+</node>
 </node>
 </node>
 </node>

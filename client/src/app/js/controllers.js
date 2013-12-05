@@ -6,7 +6,34 @@ angular.module('litekmApp.controllers', []).
     controller('MyCtrl1', [function() {
 
     }])
-    .controller('AlertController', function($scope) {
+    .controller('KmFileUploadController', [
+        '$scope', '$http', '$filter', '$window',
+        function ($scope, $http) {
+            $scope.startUploading = function() {
+                console.log('uploading....');
+                $scope.uploadResponse2 = "[Status: Uploading] ";
+            };
+            $scope.uploadComplete = function (content, completed) {
+                if (completed && content.length > 0) {
+                    $scope.response = JSON.parse(content); // Presumed content is a json string!
+                    $scope.response.style = {
+                        color: $scope.response.color,
+                        "font-weight": "bold"
+                    };
+                    
+                    // Clear form (reason for using the 'ng-model' directive on the input elements)
+                    $scope.fullname = '';
+                    $scope.gender = '';
+                    $scope.color = '';
+                    // Look for way to clear the input[type=file] element
+                } else {
+                    // 1. ignore content and adjust your model to show/hide UI snippets; or
+                    // 2. show content as an _operation progress_ information                    
+                }
+            };            
+        }
+    ])
+    .controller('KmAlertController', function($scope) {
         $scope.alerts = [
             { type: 'error', msg: 'Oh snap! Change a few things up and try submitting again.' }, 
             { type: 'success', msg: 'Well done! You successfully read this important alert message.' }
@@ -20,7 +47,42 @@ angular.module('litekmApp.controllers', []).
             $scope.alerts.splice(index, 1);
         };
     })
-    .controller('FileGridController', function($scope, $http) {
+    .controller('KmMessageBoxController',function ($scope, $modal, $log) {
+        $scope.items = ['item1', 'item2', 'item3'];
+        
+        $scope.open = function () {        
+            var modalInstance = $modal.open({
+                templateUrl: 'myModalContent.html',
+                controller: 'KmModalInstanceCtrl',
+                resolve: {
+                    items: function () {
+                        return $scope.items;
+                    }
+                }
+            });
+            
+            modalInstance.result.then(function (selectedItem) {
+                $scope.selected = selectedItem;
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
+            });
+        };
+    })
+    .controller('KmModalInstanceCtrl', function ($scope, $modalInstance, items) {
+        $scope.items = items;
+        $scope.selected = {
+            item: $scope.items[0]
+        };
+        
+        $scope.ok = function () {
+            $modalInstance.close($scope.selected.item);
+        };
+        
+        $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
+        };
+    })    
+    .controller('KmFileGridController', function($scope, $http) {
         $scope.mySelections = [];
         $scope.myData = [{name: "Moroni", age: 50},
                          {name: "Tiancum", age: 43},
@@ -90,7 +152,27 @@ angular.module('litekmApp.controllers', []).
             filterOptions: $scope.filterOptions          
         };
     })
-    .controller('DirTreeController', function($scope) {
+    .controller('KmRatingController', function ($scope) {
+        $scope.rate = 7;
+        $scope.max = 10;
+        $scope.isReadonly = false;
+        
+        $scope.hoveringOver = function(value) {
+            $scope.overStar = value;
+            $scope.percent = 100 * (value / $scope.max);
+        };
+    })    
+    .controller('KmPopoverController', function ($scope) {
+        $scope.dynamicPopover = "Hello, World!";
+        $scope.dynamicPopoverText = "dynamic";
+        $scope.dynamicPopoverTitle = "Title";
+    })
+    .controller('KmTooltipController', function ($scope) {
+        $scope.dynamicTooltip = "Hello, World!";
+        $scope.dynamicTooltipText = "dynamic";
+        $scope.htmlTooltip = "I've been made <b>bold</b>!";
+    })
+    .controller('KmDirTreeController', function($scope) {
         var apple_selected;
         $scope.my_tree_handler = function(branch) {
             var _ref;
