@@ -21,6 +21,14 @@
         padding-top: 3px;
     }
     
+    .uploadBox .form-horizontal .control-label {
+        width: 80px !important;
+    }
+
+    .uploadBox .form-horizontal .controls {
+        margin-left: 100px !important;
+    }
+    
     .btn-group > .nav{
         font-size: 14px;
         margin-bottom: 0px;
@@ -101,7 +109,41 @@
     				<li class="active"><a href="#">目录</a> </li>
     			</ul>
     			<div class="span4">
-    			    <button class="btn btn-primary">上传文件</button>
+    			    <span ng-controller="KmFileUploadController">
+    			        <button class="btn {{uploadBtnStyle}}" ng-click="open()">{{uploadBtnText}}</button>
+                        <script type="text/ng-template" id="UploadDialog.html">
+                            <div class="modal-header">
+                                <h3>上传文件</h3>
+                            </div>
+                            <form class="form-horizontal" action="/upload-full-form" 
+                                ng-upload="uploadFile2(content,completed)" ng-upload-loading="startUploading()" >
+                                <div class="modal-body uploadBox">
+                                    <div class="control-group">
+                                        <label class="control-label" for="file">File</label>
+                                        <div class="controls">
+                                            <input type="file" id="file" ng-model="file" placeholder="Select File">
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="summary">Summary</label>
+                                        <div class="controls">
+                                            <textarea id="Summary" ng-model="summary" placeholder="Summary for file"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="tags">Tags</label>
+                                        <div class="controls">
+                                            <input type="text" id="tags" ng-model="tags" placeholder="tag seperated by comma">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-primary" upload-submit="" >上传</button>
+                                    <button class="btn btn-warning" ng-click="cancel()">取消</button>
+                                </div>
+                            </form>
+                        </script>
+    			    </span>
         			<form class="form-search pull-right">
                         <div class="input-append">
                             <input type="text" class="span10 search-query" placeholder="搜索" >
@@ -126,22 +168,22 @@
                     </div><!--/.well -->
                 </div><!--/span-->
                 <div class="span9">   
+                    <div ng-controller="KmAlertController">
+                        <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+                    </div>
 
                     <div ng-controller="KmFileGridController">
-                        <div class="file-grid table-bordered" ng-grid="gridOptions">
+                        <div id="fileGrid" class="file-grid table-bordered" ng-grid="gridOptions">
                         </div>
                         <div class="selectedItems">{{mySelections}}</div>
                     </div>                       
                     <div class="alert alert-warning">{{ output }}</div>     
-                    <div ng-controller="KmAlertController">
-                        <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
-                    </div>
                 </div><!--/span-->
             </div><!--/row-->
             <div ng-controller="KmMessageBoxController">
                 <script type="text/ng-template" id="myModalContent.html">
                     <div class="modal-header">
-                        <h3>I'm a modal!</h3>
+                        <h3>I am a modal!</h3>
                     </div>
                     <div class="modal-body">
                         <ul>
@@ -153,7 +195,7 @@
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-primary" ng-click="ok()">OK</button>
-                        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+                        <button class="btn" ng-click="cancel()">Cancel</button>
                     </div>
                 </script>
             
@@ -172,45 +214,8 @@
             <div ng-controller="KmTooltipController">
                 <a><span tooltip-popup-delay='1000' tooltip-html-unsafe="{{htmlTooltip}}">Tooltip!!!</span></a>
             </div>
-            <div ng-controller="KmFileUploadController">
-                <script type="text/ng-template" id="FileUploadWindow.html">
-                    <div class="modal-header">
-                        <h3>I'm a modal!</h3>
-                    </div>
-                    <div class="modal-body">                    
-                        <form class="form-horizontal" ng-upload action="/upload-full-form" ng-upload-loading="startUploading()">
-                            <div class="control-group">
-                                <label class="control-label" for="upFile">文件：</label>
-                                <div class="controls"><input id="upFile" type="file" name="file" /></div>
-                            </div>
-                            <div class="control-group">
-                                <label class="control-label" for="upSummary">介绍：</label>
-                                <div class="controls"><textarea rows="3" id="upSummary" class="span5" type="text" name="summary" ng-model="summary" placeholder="概要介绍文件的内容" ></textarea></div>
-                            </div>
-                            <div class="control-group">
-                                <label class="control-label" for="upTags">标签：</label>
-                                <div class="controls"><input id="upTags" class="span5" type="text" name="tags" ng-model="tags" placeholder="逗号分隔的标签属性" /></div>
-                            </div>
-                            <div class="control-group">
-                                <div class="controls"><button type="submit" class="btn btn-danger" upload-submit="uploadComplete(content, completed)" ng-disabled="$isUploading" >上传</button></div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary" ng-click="ok()">OK</button>
-                        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-                    </div>
-                </script>
-                <div class="alert alert-info">Server Response: {{response | json}}</div>
-                <div>
-                    Fullname: <b>{{response.fullname}}</b><br />
-                    Gender: <b>{{response.gender}}</b><br />
-                    Favourite Color: <span ng-style="response.style">{{response.color}}</span><br />
-                    Picture: {{response.pictureUrl}}
-                </div>            
-            </div>
         </div> <!-- /container -->
-        <div id="push"></div>
+        <div class="clearfix"></div>
     </div>
   
     <div id="footer">

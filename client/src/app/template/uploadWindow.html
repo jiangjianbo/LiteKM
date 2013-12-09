@@ -1,0 +1,25 @@
+<div class="modal uploadBox" collapse="uploadBoxVisible == 0">
+    <div class="modal-header">
+        <h3>文件上传</h3>
+    </div>
+    <form class="form-horizontal" ng-upload="ab()" action="/upload-full-form" ng-upload-loading="startUploading()">
+    <div class="modal-body">                    
+        <div class="control-group">
+            <label class="control-label" for="upFile">文件：</label>
+            <div class="controls"><input id="upFile" type="file" name="file" /></div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="upSummary">介绍：</label>
+            <div class="controls"><textarea rows="3" id="upSummary" class="span10" type="text" name="summary" ng-model="summary" placeholder="概要介绍文件的内容" ></textarea></div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="upTags">标签：</label>
+            <div class="controls"><input id="upTags" class="span10" type="text" name="tags" ng-model="tags" placeholder="逗号分隔的标签属性" /></div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-danger" upload-submit="uploadComplete(content, completed)" ng-disabled="$isUploading" >上传</button>
+        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+    </div>
+    </form>
+</div>

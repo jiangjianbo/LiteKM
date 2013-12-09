@@ -1,0 +1,29 @@
+{
+  "name": "ng-i18next",
+  "version": "0.2.8",
+  "description": "AngularJS filter and directive for i18next by Jan Mühlemann",
+  "main": "./dist/ng-i18next.js",
+  "author": {
+    "name": "Andre Meyering"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/archer96/ng-i18next/LICENSE"
+    }
+  ],
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-uglify": "~0.2.0",
+    "grunt-contrib-jshint": "~0.6.0",
+    "grunt-contrib-connect": "~0.3.0",
+    "grunt-contrib-clean": "~0.4.1",
+    "grunt-contrib-watch": "~0.4.0",
+    "grunt-karma": "~0.4.3",
+    "grunt-open": "~0.2.0",
+    "matchdep": "~0.1.2",
+    "connect-livereload": "~0.2.0",
+    "grunt-ngdocs": "~0.1.2"
+  }
+}

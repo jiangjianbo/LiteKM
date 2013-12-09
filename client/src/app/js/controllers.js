@@ -7,30 +7,63 @@ angular.module('litekmApp.controllers', []).
 
     }])
     .controller('KmFileUploadController', [
-        '$scope', '$http', '$filter', '$window',
-        function ($scope, $http) {
+        '$scope', '$http', '$filter', '$window', '$modal',
+        /// 负责处理对话框，上传文件和进度条
+        function ($scope, $http, $modal) {
+            $scope.uploadBtnText = '上传文件';
+            $scope.uploadBtnStyle = 'btn-primary';
+            $scope.file = '';
+            $scope.summary = '';
+            $scope.tags = '';
+                        
             $scope.startUploading = function() {
                 console.log('uploading....');
-                $scope.uploadResponse2 = "[Status: Uploading] ";
+                $scope.uploadBtnText = "取消上传文件...";
+                $scope.uploadBtnStyle = 'btn-warning';
+                $modalInstance.close($scope.selected.item);
             };
+            
             $scope.uploadComplete = function (content, completed) {
                 if (completed && content.length > 0) {
-                    $scope.response = JSON.parse(content); // Presumed content is a json string!
-                    $scope.response.style = {
-                        color: $scope.response.color,
-                        "font-weight": "bold"
-                    };
+                    $scope.uploadBtnText = '上传文件';
+                    //$scope.response = JSON.parse(content); // Presumed content is a json string!
+                    //$scope.response.style = {
+                    //    color: $scope.response.color,
+                    //    "font-weight": "bold"
+                    //};
                     
                     // Clear form (reason for using the 'ng-model' directive on the input elements)
-                    $scope.fullname = '';
-                    $scope.gender = '';
-                    $scope.color = '';
+                    //$scope.fullname = '';
+                    //$scope.gender = '';
+                    //$scope.color = '';
                     // Look for way to clear the input[type=file] element
                 } else {
                     // 1. ignore content and adjust your model to show/hide UI snippets; or
                     // 2. show content as an _operation progress_ information                    
                 }
-            };            
+            }; 
+
+            $scope.open = function () {        
+                var modalInstance = $modal.open({
+                    templateUrl: 'UploadDialog.html',
+                    controller: 'KmFileUploadController',
+                    resolve: {
+                        items: function () {
+                            return $scope.items;
+                        }
+                    }
+                });
+                
+                modalInstance.result.then(function (selectedItem) {
+                    $scope.selected = selectedItem;
+                }, function () {
+                    $log.info('file upload cancelled');
+                });
+            };
+            
+            $scope.cancel = function () {
+                $modalInstance.dismiss('cancel');
+            };                       
         }
     ])
     .controller('KmAlertController', function($scope) {
